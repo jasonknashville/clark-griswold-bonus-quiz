@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Clark Griswold Bonus Quiz</title>
+  <meta name="description" content="A quick Christmas Vacation trivia quiz about Clark Griswold’s bonus." />
+
+  <!-- Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-MH9X9NGV');
+  </script>
+  <!-- End Google Tag Manager -->
+
+  <style>
+    :root{
+      --bg: #0b1220;
+      --card: rgba(255,255,255,0.06);
+      --card2: rgba(255,255,255,0.09);
+      --text: rgba(255,255,255,0.92);
+      --muted: rgba(255,255,255,0.72);
+      --muted2: rgba(255,255,255,0.60);
+      --border: rgba(255,255,255,0.16);
+      --shadow: 0 18px 60px rgba(0,0,0,0.35);
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 700px at 30% 0%, rgba(255,255,255,0.08), transparent 55%),
+                  radial-gradient(900px 600px at 80% 20%, rgba(255,255,255,0.06), transparent 60%),
+                  var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: 26px 14px;
+    }
+
+    .wrap{
+      width: min(920px, 100%);
+    }
+
+    .card{
+      background: linear-gradient(180deg, var(--card), rgba(255,255,255,0.04));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    .header{
+      padding: 22px 22px 14px;
+      border-bottom: 1px solid rgba(255,255,255,0.10);
+    }
+    .kicker{
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted2);
+      margin: 0 0 8px;
+    }
+    h1{
+      margin:0 0 10px;
+      font-size: clamp(22px, 3vw, 30px);
+      line-height: 1.15;
+    }
+    .sub{
+      margin:0;
+      color: var(--muted);
+      line-height: 1.45;
+      font-size: 15.5px;
+    }
+
+    .content{
+      padding: 18px 22px 22px;
+    }
+
+    .question{
+      margin: 0 0 14px;
+      font-size: 18px;
+      line-height: 1.35;
+    }
+    .hint{
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 14.5px;
+      line-height: 1.45;
+    }
+
+    .answers{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    button.choice{
+      width: 100%;
+      text-align:left;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.06);
+      color: var(--text);
+      cursor:pointer;
+      transition: transform 0.06s ease, background 0.15s ease, border-color 0.15s ease;
+      font-size: 16px;
+      line-height: 1.2;
+    }
+    button.choice:hover{
+      background: rgba(255,255,255,0.10);
+      border-color: rgba(255,255,255,0.26);
+      transform: translateY(-1px);
+    }
+    button.choice[disabled]{
+      cursor: default;
+      opacity: 0.9;
+    }
+
+    .metaRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items:center;
+      justify-content: space-between;
+      margin-top: 6px;
+    }
+    .tiny{
+      color: var(--muted2);
+      font-size: 12.5px;
+      line-height: 1.35;
+    }
+
+    .reveal{
+      margin-top: 14px;
+      padding: 16px 16px;
+      border-radius: 16px;
+      background: linear-gradient(180deg, var(--card2), rgba(255,255,255,0.05));
+      border: 1px solid rgba(255,255,255,0.14);
+      display:none;
+    }
+    .reveal h2{
+      margin: 0 0 8px;
+      font-size: 18px;
+      line-height: 1.2;
+    }
+    .reveal p{
+      margin: 0 0 10px;
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.5;
+    }
+    .reveal .answerLine{
+      margin: 10px 0 0;
+      padding: 12px 12px;
+      border-radius: 12px;
+      background: rgba(0,0,0,0.22);
+      border: 1px solid rgba(255,255,255,0.10);
+      color: rgba(255,255,255,0.90);
+      font-size: 15.5px;
+      line-height: 1.5;
+    }
+
+    .footer{
+      padding: 14px 22px 18px;
+      border-top: 1px solid rgba(255,255,255,0.10);
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btnSecondary{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      cursor:pointer;
+      font-size: 14px;
+    }
+    .btnSecondary:hover{
+      background: rgba(255,255,255,0.09);
+      border-color: rgba(255,255,255,0.22);
+    }
+
+    @media (min-width: 700px){
+      .answers{ grid-template-columns: 1fr 1fr; }
+      button.choice{ padding: 14px 16px; }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Google Tag Manager (noscript) -->
+  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MH9X9NGV"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+  <!-- End Google Tag Manager (noscript) -->
+
+  <main class="wrap">
+    <section class="card" aria-label="Clark Griswold bonus quiz">
+      <header class="header">
+        <p class="kicker">Christmas Vacation Trivia</p>
+        <h1>What do you think Clark Griswold’s Christmas bonus was?</h1>
+        <p class="sub">
+          The movie never confirms the exact amount — but we can make a pretty logical guess.
+        </p>
+      </header>
+
+      <div class="content">
+        <p class="question">
+          While the movie doesn’t confirm it for certain… what do <em>you</em> think Clark’s bonus was?
+        </p>
+        <p class="hint">
+          Hint: remember what Mr. Shirley says at the end — “whatever you got last year… <strong>add 20%.</strong>”
+        </p>
+
+        <div class="answers" id="answers" role="group" aria-label="Answer choices">
+          <!-- buttons injected by JS -->
+        </div>
+
+        <div class="metaRow">
+          <div class="tiny" id="status">Pick one option — no email, no form, just for fun.</div>
+          <div class="tiny" id="picked"></div>
+        </div>
+
+        <div class="reveal" id="reveal" aria-live="polite">
+          <h2 id="revealTitle">Nice guess.</h2>
+          <p id="revealBody"></p>
+          <div class="answerLine" id="revealMath"></div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="tiny">Built for quick clicks ✨</div>
+        <button class="btnSecondary" id="resetBtn" type="button">Reset</button>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    // Ensure dataLayer exists (GTM creates it, but this is a safe fallback)
+    window.dataLayer = window.dataLayer || [];
+
+    const CHOICES = [
+      { label: "Under $1,000", range: "Under $1,000" },
+      { label: "$1,000 – $5,000", range: "$1,000–$5,000" },
+      { label: "$5,000 – $10,000", range: "$5,000–$10,000" },   // "best" range for the logic
+      { label: "$10,000 – $20,000", range: "$10,000–$20,000" },
+      { label: "$20,000+ (before adding 20%)", range: "$20,000+ (pre-20%)" }
+    ];
+
+    const BEST_RANGE_INDEX = 2;
+
+    const answersEl = document.getElementById("answers");
+    const statusEl  = document.getElementById("status");
+    const pickedEl  = document.getElementById("picked");
+    const revealEl  = document.getElementById("reveal");
+    const revealTitleEl = document.getElementById("revealTitle");
+    const revealBodyEl  = document.getElementById("revealBody");
+    const revealMathEl  = document.getElementById("revealMath");
+    const resetBtn = document.getElementById("resetBtn");
+
+    let chosenIndex = null;
+
+    function money(n){
+      return n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
+    }
+
+    function buildButtons(){
+      answersEl.innerHTML = "";
+      CHOICES.forEach((c, idx) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "choice";
+        btn.textContent = c.label;
+        btn.setAttribute("data-index", String(idx));
+        btn.addEventListener("click", () => choose(idx, btn));
+        answersEl.appendChild(btn);
+      });
+    }
+
+    function disableButtons(){
+      Array.from(document.querySelectorAll("button.choice")).forEach(b => {
+        b.disabled = true;
+      });
+    }
+
+    function enableButtons(){
+      Array.from(document.querySelectorAll("button.choice")).forEach(b => {
+        b.disabled = false;
+        b.style.background = "";
+        b.style.borderColor = "";
+      });
+    }
+
+    function choose(idx, btn){
+      if (chosenIndex !== null) return;
+      chosenIndex = idx;
+
+      // Visual highlight
+      btn.style.background = "rgba(255,255,255,0.14)";
+      btn.style.borderColor = "rgba(255,255,255,0.35)";
+
+      disableButtons();
+
+      const pickedRange = CHOICES[idx].range;
+      const isBestRange = idx === BEST_RANGE_INDEX;
+
+      pickedEl.textContent = "You picked: " + CHOICES[idx].label;
+
+      // Push GTM event for answer selection
+      window.dataLayer.push({
+        event: "quiz_answer",
+        quiz_name: "clark_griswold_bonus",
+        answer_index: idx,
+        answer_range: pickedRange,
+        is_correct_range: isBestRange,
+        page_path: location.pathname,
+        ts: Date.now()
+      });
+
+      // Reveal content (movie-accurate)
+      // Known: deposit = 7500, expectation covers it; Shirley says add 20% on last year.
+      const deposit = 7500;
+      const addPct  = 0.20;
+      const addAmt  = deposit * addPct;
+      const total   = deposit + addAmt;
+
+      revealEl.style.display = "block";
+      revealTitleEl.textContent = isBestRange ? "That’s the sweet spot." : "Totally fair guess.";
+
+      revealBodyEl.textContent =
+        "Here’s the cleanest logic: Clark puts down a $7,500 deposit on the pool and expects the bonus to cover it — " +
+        "which implies last year’s bonus was roughly that amount. In the final scene, Mr. Shirley reinstates the bonus and says " +
+        "“whatever you got last year… add 20%.”";
+
+      revealMathEl.textContent =
+        `${money(deposit)} + 20% (${money(addAmt)}) = ${money(total)} → about $9,000`;
+
+      statusEl.textContent = "Most people land in the $5,000–$10,000 range once they think through the deposit + “add 20%.”";
+
+      // Push GTM event for reveal shown
+      window.dataLayer.push({
+        event: "quiz_reveal_shown",
+        quiz_name: "clark_griswold_bonus",
+        chosen_answer_index: idx,
+        page_path: location.pathname,
+        ts: Date.now()
+      });
+
+      // Smooth scroll to reveal (mobile-friendly)
+      setTimeout(() => revealEl.scrollIntoView({ behavior: "smooth", block: "start" }), 150);
+    }
+
+    function reset(){
+      chosenIndex = null;
+      enableButtons();
+      pickedEl.textContent = "";
+      statusEl.textContent = "Pick one option — no email, no form, just for fun.";
+      revealEl.style.display = "none";
+      revealTitleEl.textContent = "";
+      revealBodyEl.textContent = "";
+      revealMathEl.textContent = "";
+
+      window.dataLayer.push({
+        event: "quiz_reset",
+        quiz_name: "clark_griswold_bonus",
+        page_path: location.pathname,
+        ts: Date.now()
+      });
+    }
+
+    resetBtn.addEventListener("click", reset);
+
+    buildButtons();
+  </script>
+</body>
+</html>
